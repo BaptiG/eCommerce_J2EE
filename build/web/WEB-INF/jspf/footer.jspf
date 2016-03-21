@@ -1,0 +1,49 @@
+<%-- 
+    Document   : footer
+    Created on : 20 janv. 2016, 15:18:35
+    Author     : Baptiste
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+       <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<link href="css/theme.css" rel='stylesheet' type='text/css' />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		</script>
+		<!----webfonts---->
+		<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
+		<!----//webfonts---->
+    </head>
+    <body>
+        <div id ="main">
+            <div class="footer">
+	<div class="container">
+		 <div class="row">
+		 	<div class="col-md-12">
+		 		<ul class="list-inline pull-left">
+		 			<li><a href="#">Terms of Services</a></li>
+		 			<li><a href="#">Privacy Policy</a></li>
+		 			<li><a href="./contact">Contact</a></li>
+		 		</ul>
+		 		<form class="navbar-form pull-right" role="search">
+			        <div class="form-group">
+			        <input type="text" class="form-control" placeholder="Search">
+			        </div>
+			        <button type="Find" class="btn btn-default">Find</button>
+			    </form>
+		 	</div>	
+		 </div>	
+		 <div class="copy-right text-center">
+			<p> &copy; 2016 Incloser. All rights reserved | Made by Baptiste Gelin and Thomas Vavassori</p>	
+		</div>
+	</div>
+</div>
+        </div>
+    </body>
+</html>

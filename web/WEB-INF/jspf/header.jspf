@@ -1,0 +1,132 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%-- 
+    Document   : header
+    Created on : 20 janv. 2016, 15:18:07
+    Author     : Baptiste
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+        <link href="css/theme.css" rel='stylesheet' type='text/css' />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    </script>
+    <!----webfonts---->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
+    <!----//webfonts---->
+</head>
+<body>
+    <!-- Begin Header -->
+    <!----start-container----->
+    <div class="header-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="logo" ><a href="./index">Incloser</a></div>
+                </div>
+                <div class="col-md-5"> 
+                    <div class="pull-left">
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="container-fluid">
+				
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav">
+
+                                        <li>
+                                            <div class="btn-group show-on-hover">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    Catégories<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <%-- <sql:query var="category" dataSource="jdbc/incloser">
+                                                        SELECT * FROM category
+                                                    </sql:query>--%>
+                                                    <c:forEach var="category" items="${categories}">
+                                                        <li><a href="category?${category.idcategory}">${category.name}</a></li>
+                                                        </c:forEach>
+
+                                                </ul>
+                                            </div>						          
+                                        </li>
+                                        <li><a href="./about">A propos</a></li>
+                                        <li><a href="./contact">Contact</a></li>
+                                    </ul>							      					    					      
+                                </div><!-- /.navbar-collapse -->
+                            </div><!-- /.container-fluid -->
+
+                        </nav>
+                    </div>			
+
+
+
+                </div>
+                <div class="col-md-4"> 
+
+                    <div class="right">
+                        <div class="pull-left"> 
+
+                            <ul class="list-unstyled">
+
+                                <c:choose>
+                                    <c:when test="${customer != null}">
+                                        <a href="./viewCart" style="text-decoration: none ; color: white;">${customer.getNickname()}</a>  
+                                        <a href="./disconnect"><span class="glyphicon glyphicon-log-in" style="color:white"></span>
+                                        </c:when>
+
+                                        <c:otherwise>
+                                            <a href="./register" style="text-decoration: none ; color: white;">Se connecter</a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                            <br>
+
+
+                                    <li class="a text-left"><a href="./viewCart"><span class="glyphicon glyphicon-shopping-cart"></span></a> 
+
+                                        <c:choose><c:when test="${cart.numberOfItems == null}">
+                                                0 €0
+
+                                            </c:when>
+
+                                            <c:otherwise>
+
+                                                ${cart.numberOfItems} // ${cart.getSubtotal()} €
+
+                                            </c:otherwise></c:choose>
+
+                                    </li>
+                                    <br>
+                                    <li><a href="./checkout">Paiement</a></li>
+
+                            </ul>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>                           
+            </div> 
+
+
+
+
+
+            <!----start-images-slider---->	
+            <!-- Single button -->
+
+        </div>
+    </div>
+
+    <!-- End Header -->
+</body>
+</html>
