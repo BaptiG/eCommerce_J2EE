@@ -82,7 +82,7 @@
                                         <c:otherwise>
                                             <a href="./register" style="text-decoration: none ; color: white;">Se connecter</a>
                                         </c:otherwise>
-                                    </c:choose>
+                                </c:choose>
                                             <br>
 
 
@@ -152,8 +152,29 @@
       </ul>
      
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><i class="fa fa-shopping-basket"></i> Panier : 0.00€</a></li>
-        <li><a href="#"><i class="fa fa-user"></i> Se connecter</a></li>
+        <li><a href="./viewCart"><i class="fa fa-shopping-basket"></i> Panier : 
+         <c:choose><c:when test="${cart.numberOfItems == null}">
+                                                0 €0
+
+                                            </c:when>
+
+                                            <c:otherwise>
+
+                                                ${cart.numberOfItems} ~ ${cart.getSubtotal()} €
+
+                                            </c:otherwise>
+        </c:choose>        
+        </a></li>
+        <li>            
+             <c:choose>
+                <c:when test="${customer != null}">
+                    <a href="./viewProfil"><i class="fa fa-user"></i> ${customer.getNickname()}</a>  
+                </c:when>
+                <c:otherwise>
+                          <a href="./register"><i class="fa fa-user"></i> Se connecter</a>
+                </c:otherwise>
+            </c:choose>
+        </li>
       </ul>
     </div>
   </div>

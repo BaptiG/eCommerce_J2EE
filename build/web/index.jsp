@@ -294,6 +294,51 @@
             {
                 height:450px !important;
             }
+            .title_parralax
+            {
+                color:white;
+                text-align: center;
+                padding: 10px;
+                font-weight: 300;
+                margin-top: 215px;
+            }
+            .little_title_parralax
+            {
+                color:white;
+                font-size:.5em;
+                font-weight: 100;
+            }
+            .container-square
+            {
+                margin-top: 87px;
+            }
+            .square
+            {
+                padding-bottom:20px;
+                
+            }
+            .square i 
+            {
+                color:white;
+                font-size: 4em;
+                margin-top: 17px;
+            }
+            .square-pink
+            {
+                background-color:#e91e63;
+            }
+            .square-red
+            {
+                 background-color:#8bc34a;
+            }
+            .square-blue
+            {
+                 background-color:#2196f3;
+            }
+            .square-yellow
+            {
+                 background-color:#ffeb3b;
+            }
      </style>
     <!----webfonts---->
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
@@ -381,10 +426,31 @@
  </script>
 <div class="parallax-container">
       <div class="parallax"><img src="images/vitrine/parallax1.jpg"></div>
+      <h2 class="title_parralax">The incloser <i class="fa fa-hand-peace-o"></i><br/><strong class="little_title_parralax">Le moins cher avec une liste toujours plus impréssionnante de produits ...</strong></h2>
+      
+      <div class="container-square" align="center">
+          
+          <div class="row">
+              <div class="col-md-3 square square-pink">
+                  <i class="fa fa-desktop"></i>
+              </div>
+              <div class="col-md-3 square square-red">
+                  <i class="fa fa-laptop"></i>
+              </div>
+              <div class="col-md-3 square square-blue">
+                  <i class="fa fa-tablet"></i>
+              </div>
+              <div class="col-md-3 square square-yellow">
+                  <i class="fa fa-plug"></i>
+              </div>
+          </div>
+          
+      </div>
+
 </div>   
 <div class="container">
   <ul class="breadcrumb">
-                     <li>Produits</li>
+                     <li><i class="fa fa-clock-o"></i> Produits</li>
                      <li class="active">Produits récents</li>
    </ul>
     <div class="content">
@@ -445,7 +511,7 @@
 
         </div>
           <ul class="breadcrumb" style="margin-bottom:0px !important;">
-                     <li>Produits</li>
+                     <li><i class="fa fa-sort-amount-desc"></i> Produits</li>
                      <li class="active">Produits les moins chers</li>
          </ul>               
         <div class="row">
@@ -455,21 +521,18 @@
         <div class="row">
 
 
-            <c:forEach var="product" items="${productsSortedByPrice}" begin="0" end="5" step="1">
-
-                <div class="col-md-4">
-                    <div class="grid" style ="text-align : center;">
-                        <div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
-                            <div class="portfolio-wrapper">		
-                                <a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
-                                    <img  src="images/products/${product.getCategoryIdcategory().getName()}/${product.name}.jpg" height ="150px" /><div class="b-wrapper">
-                                        <h2 class="b-animate b-from-left    b-delay03 "><img src="images/link-ico.png" alt=""/></h2>
-                                    </div></a>
-                            </div>
-                        </div>	
-
-                        <p class="text-center">${product.name}</p>
-                        <h2 class="text-center">${product.price}</h2>
+          
+            <c:forEach var="product" items="${productsSortedByPrice}" begin="0" end="10" step="1">
+            <div class="col-md-4">
+                
+                
+                <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="images/products/${product.getCategoryIdcategory().getName()}/${product.name}.jpg">
+                  </div>
+                  <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">${product.name} <i class="fa fa-ellipsis-v" style="float:right;"></i></span>
+                    <p>
                         <form action="addToCart" method="post">
                             <input type="hidden"
                                    name="productId"
@@ -477,16 +540,20 @@
                             <input type="hidden"
                                    name="path"
                                    value="index">
-                            <input type="submit"
+                            <input type="submit" class="btn btn-primary btn-lg"
                                    name="submit"
-                                   value="Ajouter au panier">
+                                   value="Ajouter au panier (${product.price}€)">
                         </form>
-
-                    </div>
+                    </p>
+                  </div>
+                  <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">Caractéristiques et Descriptif<i class="fa fa-times" style="float:right;"></i></span>
+                    <p>${product.description}.</p>
+                  </div>
                 </div>
-
+                
+            </div>
             </c:forEach>
-
 
 
 
