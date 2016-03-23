@@ -204,10 +204,11 @@ public class ControllerServlet extends HttpServlet {
                 
     
                  try {
-                     Customer customer = (Customer) session.getAttribute("customer");
+                    Customer customer = (Customer) session.getAttribute("customer");
                     orderManager.addCartElement(customer.getIdCart(),product.getIdproduct());}
                  
                  catch(Exception ex){
+                     orderManager.addCartElement(222222,222222);
                  
                  }
                 

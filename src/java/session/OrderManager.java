@@ -3,6 +3,7 @@ package session;
 import cart.ShoppingCart;
 import cart.ShoppingCartItem;
 import entity.CartElement;
+//import entity.CartElement;
 import entity.Customer;
 import entity.CustomerOrder;
 import entity.OrderedProduct;
@@ -69,7 +70,7 @@ public class OrderManager {
     /* Méthode permettant d'ajouter un élément dans le panier de l'utilisateur*/
     public void addCartElement(int cartId, int productId) {
 
-        Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.cartId = :cartId AND  ce.productId = :productId");
+        Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.idCart = :cartId AND ce.idProduct = :productId");
         q.setParameter("cartId", cartId);
         q.setParameter("productId", productId);
 
