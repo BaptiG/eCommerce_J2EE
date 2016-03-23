@@ -250,6 +250,8 @@ public class ControllerServlet extends HttpServlet {
                         session.setAttribute("customer", customer);
 
                     } catch (Exception e) {
+                        
+                        System.out.println(e.toString());
                     }
 
                 } else if (typeFormulaire.equals("register")) {
