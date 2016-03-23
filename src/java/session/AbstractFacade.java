@@ -87,6 +87,7 @@ public abstract class AbstractFacade<T> {
         Root<Product> p = cq.from(Product.class);
         cq.select(cq.from(entityClass));
         cq.orderBy(getEntityManager().getCriteriaBuilder().desc(p.get("lastUpdate")));
+        System.out.println(getEntityManager().createQuery(cq).getResultList());
         return getEntityManager().createQuery(cq).getResultList();
     }
 

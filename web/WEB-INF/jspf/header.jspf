@@ -11,21 +11,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-        <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-        <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
-        <link href="css/theme.css" rel='stylesheet' type='text/css' />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     </script>
-    <!----webfonts---->
+
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!----//webfonts---->
 </head>
 <body>
-    <!-- Begin Header -->
-    <!----start-container----->
-    <div class="header-bg">
+
+ <!--   <div class="header-bg">
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
@@ -36,7 +34,7 @@
                         <nav class="navbar navbar-default" role="navigation">
                             <div class="container-fluid">
 				
-                                <!-- Collect the nav links, forms, and other content for toggling -->
+                            
                                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                     <ul class="nav navbar-nav">
 
@@ -59,8 +57,8 @@
                                         <li><a href="./about">A propos</a></li>
                                         <li><a href="./contact">Contact</a></li>
                                     </ul>							      					    					      
-                                </div><!-- /.navbar-collapse -->
-                            </div><!-- /.container-fluid -->
+                                </div>
+                            </div>
 
                         </nav>
                     </div>			
@@ -121,12 +119,44 @@
 
 
 
-            <!----start-images-slider---->	
-            <!-- Single button -->
 
         </div>
+    </div> -->
+                 
+<nav class="navbar navbar-default" style="    margin-bottom: 0 !important;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="./">The incloser website</a>
     </div>
 
-    <!-- End Header -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="./"><i class="fa fa-shopping-bag"></i> Produits <span class="sr-only">(current)</span></a></li>
+       
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-plus-square-o"></i> Plus <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="./about"><i class="fa fa-info-circle"></i> A propos</a></li>
+            <li class="divider"></li>
+            <li><a href="./contact"><i class="fa fa-envelope-o"></i> Contacts</a></li>
+        
+       
+          </ul>
+        </li>
+      </ul>
+     
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><i class="fa fa-shopping-basket"></i> Panier : 0.00€</a></li>
+        <li><a href="#"><i class="fa fa-user"></i> Se connecter</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 </body>
 </html>

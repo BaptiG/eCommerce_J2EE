@@ -10,9 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-       <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
-		<link href="css/theme.css" rel='stylesheet' type='text/css' />
+		
+		<link href="css/footer.css" rel='stylesheet' type='text/css' />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		</script>
@@ -21,29 +20,29 @@
 		<!----//webfonts---->
     </head>
     <body>
-        <div id ="main">
-            <div class="footer">
-	<div class="container">
-		 <div class="row">
-		 	<div class="col-md-12">
-		 		<ul class="list-inline pull-left">
-		 			<li><a href="#">Terms of Services</a></li>
-		 			<li><a href="#">Privacy Policy</a></li>
-		 			<li><a href="./contact">Contact</a></li>
-		 		</ul>
-		 		<form class="navbar-form pull-right" role="search">
-			        <div class="form-group">
-			        <input type="text" class="form-control" placeholder="Search">
-			        </div>
-			        <button type="Find" class="btn btn-default">Find</button>
-			    </form>
-		 	</div>	
-		 </div>	
-		 <div class="copy-right text-center">
-			<p> &copy; 2016 Incloser. All rights reserved | Made by Baptiste Gelin and Thomas Vavassori</p>	
-		</div>
-	</div>
-</div>
+         <div class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l8 s12">
+                <h5 class="white-text"><i class="fa fa-info-circle"></i> A propos de Incloser</h5>
+                <p class="white-text">Ce site a été créé par deux étudiants de ESIEE PARIS, école d'ingénieurs généraliste, basé sur le campus Descartes à Noisy le Grand.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text"><i class="fa fa-home"></i> Contacts</h5>
+                <ul style="list-style-type: none;padding: 0;">
+                  <li><a class="white-text" href="#!">Siège social de Incloser</a></li>
+                  <li><a class="white-text" href="#!">2 Boulevard Blaise Pascal, Noisy le Grand 93162</a></li>
+                  <li><a class="white-text" href="#!">contact@incloser.fr</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Copyright Text
+            <a class="white-text" style="float:right;" href="#!">More Links</a>
+            </div>
+          </div>
         </div>
     </body>
 </html>
