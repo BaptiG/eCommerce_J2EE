@@ -23,6 +23,12 @@ public class ShoppingCart {
         numberOfItems = 0;
         total = 0;
     }
+    
+        public ShoppingCart(List cart) {
+        items = cart;
+        numberOfItems = 0;
+        total = 0;
+    }
 
     /**
      * Adds a <code>ShoppingCartItem</code> to the <code>ShoppingCart</code>'s

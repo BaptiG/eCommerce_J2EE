@@ -8,6 +8,7 @@ import entity.Customer;
 import entity.CustomerOrder;
 import entity.OrderedProduct;
 import entity.OrderedProductPK;
+import entity.Product;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
@@ -93,7 +94,7 @@ public class OrderManager {
     /* Méthode permettant de modifier un élément dans le panier de l'utilisateur*/
     public void setCartElement(int cartId, int productId, int quantity) {
 
-        Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.cartId = :cartId AND  ce.productId = :productId");
+        Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.idCart = :cartId AND  ce.idProduct = :productId");
         q.setParameter("cartId", cartId);
         q.setParameter("productId", productId);
 
@@ -114,7 +115,22 @@ public class OrderManager {
         }
 
     }
-
+    public Product getProduct(int idProduct)
+    {
+    Product product = em.find(Product.class,idProduct);
+    return product;
+    }
+    
+    public List addElementsToCart (int cartId) 
+    
+    {
+      Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.idCart = :cartId");
+      q.setParameter("cartId", cartId);
+      List listElement = q.getResultList();
+      
+      return listElement;
+              
+    }
     /* Méthode permettant de vérifier si un utilisateur existe dans la base de donnée et peut se connecter*/
     public Customer connectCustomer(String nickname, String password) {
         Query q = em.createQuery("SELECT c FROM Customer c WHERE c.nickname = :nickname");
