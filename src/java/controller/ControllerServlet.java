@@ -201,8 +201,23 @@ public class ControllerServlet extends HttpServlet {
 
                 Product product = productFacade.find(Integer.parseInt(productId));
                 cart.addItem(product); //On ajoute le produit au panier
+                
+    
+                 try {
+                    Customer customer = (Customer) session.getAttribute("customer");
+                    orderManager.addCartElement(customer.getIdCart(),product.getIdproduct());}
+                 
+                 catch(Exception ex){
+                     orderManager.addCartElement(222222,222222);
+                 
+                 }
+                
+                }
+    
+            
+            
           
-            }
+            
             if (request.getParameter("path").equals("category")) {
                 userPath = "/category";
             } else {
@@ -251,6 +266,7 @@ public class ControllerServlet extends HttpServlet {
                     String address = request.getParameter("address");
                     String cityRegion = request.getParameter("cityRegion");
                     String ccNumber = request.getParameter("ccNumber");
+                    
 
                     orderManager.addCustomer(nickname, password, firstname, name, email, phone, address, cityRegion, ccNumber);
 

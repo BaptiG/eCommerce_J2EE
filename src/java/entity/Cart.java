@@ -6,7 +6,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,10 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c"),
-    @NamedQuery(name = "Cart.findByIdCart", query = "SELECT c FROM Cart c WHERE c.idCart = :idCart"),
-    @NamedQuery(name = "Cart.findByIdCartCustomer", query = "SELECT c FROM Cart c WHERE c.idCartCustomer = :idCartCustomer"),
-    @NamedQuery(name = "Cart.findByIdProduct", query = "SELECT c FROM Cart c WHERE c.idProduct = :idProduct"),
-    @NamedQuery(name = "Cart.findByDateAdded", query = "SELECT c FROM Cart c WHERE c.dateAdded = :dateAdded")})
+    @NamedQuery(name = "Cart.findByIdCart", query = "SELECT c FROM Cart c WHERE c.idCart = :idCart")})
 public class Cart implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,19 +35,6 @@ public class Cart implements Serializable {
     @Basic(optional = false)
     @Column(name = "idCart")
     private Integer idCart;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "idCartCustomer")
-    private int idCartCustomer;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "idProduct")
-    private int idProduct;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "dateAdded")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateAdded;
 
     public Cart() {
     }
@@ -63,43 +43,12 @@ public class Cart implements Serializable {
         this.idCart = idCart;
     }
 
-    public Cart(Integer idCart, int idCartCustomer, int idProduct, Date dateAdded) {
-        this.idCart = idCart;
-        this.idCartCustomer = idCartCustomer;
-        this.idProduct = idProduct;
-        this.dateAdded = dateAdded;
-    }
-
     public Integer getIdCart() {
         return idCart;
     }
 
     public void setIdCart(Integer idCart) {
         this.idCart = idCart;
-    }
-
-    public int getIdCartCustomer() {
-        return idCartCustomer;
-    }
-
-    public void setIdCartCustomer(int idCartCustomer) {
-        this.idCartCustomer = idCartCustomer;
-    }
-
-    public int getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
-    }
-
-    public Date getDateAdded() {
-        return dateAdded;
-    }
-
-    public void setDateAdded(Date dateAdded) {
-        this.dateAdded = dateAdded;
     }
 
     @Override
