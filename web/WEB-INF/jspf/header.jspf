@@ -154,7 +154,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="./viewCart"><i class="fa fa-shopping-basket"></i> Panier : 
          <c:choose><c:when test="${cart.numberOfItems == null}">
-                                                0 €0
+                                                0 ~ 0.00€
 
                                             </c:when>
 
