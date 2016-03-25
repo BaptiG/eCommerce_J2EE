@@ -198,7 +198,7 @@ public class ControllerServlet extends HttpServlet {
 
                 try {
                     Customer customer = (Customer) session.getAttribute("customer");
-                    orderManager.addCartElement(customer.getIdCart(), product.getIdproduct());
+                    orderManager.addCartElement(orderManager.getCart(customer, false), product);
                 } catch (Exception ex) {
 
                 }
@@ -222,7 +222,7 @@ public class ControllerServlet extends HttpServlet {
             try {
                 // On essaye de se connecter à notre compte utilisateur
                 Customer customer = (Customer) session.getAttribute("customer");
-                orderManager.setCartElement(customer.getIdCart(), Integer.parseInt(productId), Integer.parseInt(quantity));
+                orderManager.setCartElement(orderManager.getCart(customer, false), orderManager.getProduct(Integer.parseInt(productId)), Integer.parseInt(quantity));
 
             } catch (Exception e) {
 
@@ -244,29 +244,36 @@ public class ControllerServlet extends HttpServlet {
                         Customer customer = orderManager.connectCustomer(nickname, password);
                         session.setAttribute("customer", customer);
 
+                        if (orderManager.getCart(customer, false) != null) {
+
+                        } else {
+                            orderManager.addCart(customer, Boolean.FALSE);
+                        }
+
+                        Cart cartBdd = orderManager.getCart(customer, false);
+
                         //On verifie que le panier existe et donc que au moins un élément est présent
                         if (cart != null) {
                             // On remplit la base de donnée panier
+
                             for (ShoppingCartItem sci : cart.getItems()) {
-                                orderManager.addCartElement(customer.getIdCart(), sci.getProduct().getIdproduct());
-                                orderManager.setCartElement(customer.getIdCart(), sci.getProduct().getIdproduct(), sci.getQuantity());
+                                orderManager.addCartElement(cartBdd, sci.getProduct());
+                                orderManager.setCartElement(cartBdd, sci.getProduct(), sci.getQuantity());
                             }
 
                         } else {
                         }
 
                         // On remplit le panier
-                        List<CartElement> listeElement = orderManager.addElementsToCart(customer.getIdCart());
+                        List<CartElement> listeElement = orderManager.addElementsToCart(cartBdd);
                         if (listeElement.isEmpty()) {
                         } else {
-                            if (cart == null) {
-                                cart = new ShoppingCart();
-                                session.setAttribute("cart", cart);
-                            }
+                            cart = new ShoppingCart();
+                            session.setAttribute("cart", cart);
 
                             for (CartElement element : listeElement) {
 
-                                Product product = orderManager.getProduct(element.getIdProduct());
+                                Product product = orderManager.getProduct(element.getIdProduct().getIdproduct());
                                 cart.addItem(product);
                                 cart.update(product, Integer.toString(element.getQuantity()));
 

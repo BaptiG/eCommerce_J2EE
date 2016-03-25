@@ -2,12 +2,12 @@ package session;
 
 import cart.ShoppingCart;
 import cart.ShoppingCartItem;
+import entity.Cart;
 import entity.CartElement;
 //import entity.CartElement;
 import entity.Customer;
 import entity.CustomerOrder;
 import entity.OrderedProduct;
-import entity.OrderedProductPK;
 import entity.Product;
 import java.math.BigDecimal;
 import java.util.List;
@@ -44,6 +44,14 @@ public class OrderManager {
 
     }
 
+    public void addCart(Customer customer, Boolean isPaid) {
+        Cart cartBdd = new Cart();
+        cartBdd.setIdCustomer(customer);
+        cartBdd.setIsPaid(isPaid);
+
+        em.persist(cartBdd);
+    }
+
     /* Méthode permettant d'enregistrer un utilisateur dans la base de donnée*/
     public void addCustomer(String nickname, String password, String firstname, String name, String email, String phone, String address, String cityRegion, String ccNumber) {
 
@@ -62,18 +70,14 @@ public class OrderManager {
         em.persist(customer);
         em.flush();
 
-        customer.setIdCart(customer.getIdcustomer());
-
-        em.persist(customer);
-
     }
 
     /* Méthode permettant d'ajouter un élément dans le panier de l'utilisateur*/
-    public void addCartElement(int cartId, int productId) {
+    public void addCartElement(Cart idCart, Product idProduct) {
 
-        Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.idCart = :cartId AND ce.idProduct = :productId");
-        q.setParameter("cartId", cartId);
-        q.setParameter("productId", productId);
+        Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.idCart = :idCart AND ce.idProduct = :idProduct");
+        q.setParameter("idCart", idCart);
+        q.setParameter("idProduct", idProduct);
 
         try {
             CartElement ce = (CartElement) q.getSingleResult();
@@ -83,8 +87,8 @@ public class OrderManager {
 
         } catch (Exception e) {
             CartElement ce = new CartElement();
-            ce.setIdCart(cartId);
-            ce.setIdProduct(productId);
+            ce.setIdCart(idCart);
+            ce.setIdProduct(idProduct);
             ce.setQuantity(1);
             em.persist(ce);
         }
@@ -92,11 +96,11 @@ public class OrderManager {
     }
 
     /* Méthode permettant de modifier un élément dans le panier de l'utilisateur*/
-    public void setCartElement(int cartId, int productId, int quantity) {
+    public void setCartElement(Cart idCart, Product idProduct, int quantity) {
 
-        Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.idCart = :cartId AND  ce.idProduct = :productId");
-        q.setParameter("cartId", cartId);
-        q.setParameter("productId", productId);
+        Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.idCart = :idCart AND  ce.idProduct = :idProduct");
+        q.setParameter("idCart", idCart);
+        q.setParameter("idProduct", idProduct);
 
         try {
             CartElement ce = (CartElement) q.getSingleResult();
@@ -115,22 +119,38 @@ public class OrderManager {
         }
 
     }
-    public Product getProduct(int idProduct)
-    {
-    Product product = em.find(Product.class,idProduct);
-    return product;
+
+    public Product getProduct(int idProduct) {
+        Product product = em.find(Product.class, idProduct);
+        return product;
     }
-    
-    public List addElementsToCart (int cartId) 
-    
-    {
-      Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.idCart = :cartId");
-      q.setParameter("cartId", cartId);
-      List listElement = q.getResultList();
-      
-      return listElement;
-              
+
+    public Cart getCart(Customer idCustomer, Boolean isPaid) {
+        
+        
+         try {
+        Query q = em.createQuery("SELECT cart FROM Cart cart WHERE cart.idCustomer = :idCustomer AND cart.isPaid = :isPaid");
+        q.setParameter("idCustomer", idCustomer);
+         q.setParameter("isPaid", isPaid);
+       
+            Cart cart = (Cart) q.getSingleResult();
+            return cart;
+        } catch (Exception ex) {
+            return null;
+        }
+
+
     }
+
+    public List addElementsToCart(Cart idCart) {
+        Query q = em.createQuery("SELECT ce FROM CartElement ce WHERE ce.idCart = :idCart");
+        q.setParameter("idCart", idCart);
+        List listElement = q.getResultList();
+
+        return listElement;
+
+    }
+
     /* Méthode permettant de vérifier si un utilisateur existe dans la base de donnée et peut se connecter*/
     public Customer connectCustomer(String nickname, String password) {
         Query q = em.createQuery("SELECT c FROM Customer c WHERE c.nickname = :nickname");
@@ -173,15 +193,12 @@ public class OrderManager {
 
             int productId = scItem.getProduct().getIdproduct();
 
-            // Crée l'objet clé primaire
-            OrderedProductPK orderedProductPK = new OrderedProductPK();
-            orderedProductPK.setCustomerOrderIdcustomerOrder(order.getIdcustomerOrder());
-            orderedProductPK.setProductIdproduct(productId);
-
             // Crée un item commandé en utilisant la clée primaire
-            OrderedProduct orderedItem = new OrderedProduct(orderedProductPK);
+            OrderedProduct orderedItem = new OrderedProduct();
 
             // Met à jour la quantité
+            orderedItem.setIdCustomerOrder(order);
+            orderedItem.setIdProduct(scItem.getProduct());
             orderedItem.setQuantity(scItem.getQuantity());
             em.persist(orderedItem);
         }

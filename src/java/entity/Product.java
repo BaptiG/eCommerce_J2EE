@@ -72,8 +72,10 @@ public class Product implements Serializable {
     @JoinColumn(name = "category_idcategory", referencedColumnName = "idcategory")
     @ManyToOne(optional = false)
     private Category categoryIdcategory;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProduct")
     private Collection<OrderedProduct> orderedProductCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProduct")
+    private Collection<CartElement> cartElementCollection;
 
     public Product() {
     }
@@ -144,6 +146,15 @@ public class Product implements Serializable {
 
     public void setOrderedProductCollection(Collection<OrderedProduct> orderedProductCollection) {
         this.orderedProductCollection = orderedProductCollection;
+    }
+
+    @XmlTransient
+    public Collection<CartElement> getCartElementCollection() {
+        return cartElementCollection;
+    }
+
+    public void setCartElementCollection(Collection<CartElement> cartElementCollection) {
+        this.cartElementCollection = cartElementCollection;
     }
 
     @Override

@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -28,8 +30,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "CartElement.findAll", query = "SELECT c FROM CartElement c"),
     @NamedQuery(name = "CartElement.findByIdCartElement", query = "SELECT c FROM CartElement c WHERE c.idCartElement = :idCartElement"),
-    @NamedQuery(name = "CartElement.findByIdCart", query = "SELECT c FROM CartElement c WHERE c.idCart = :idCart"),
-    @NamedQuery(name = "CartElement.findByIdProduct", query = "SELECT c FROM CartElement c WHERE c.idProduct = :idProduct"),
     @NamedQuery(name = "CartElement.findByQuantity", query = "SELECT c FROM CartElement c WHERE c.quantity = :quantity")})
 public class CartElement implements Serializable {
 
@@ -41,16 +41,14 @@ public class CartElement implements Serializable {
     private Integer idCartElement;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_cart")
-    private int idCart;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_product")
-    private int idProduct;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "quantity")
     private int quantity;
+    @JoinColumn(name = "id_Cart", referencedColumnName = "id_Cart")
+    @ManyToOne(optional = false)
+    private Cart idCart;
+    @JoinColumn(name = "id_Product", referencedColumnName = "idproduct")
+    @ManyToOne(optional = false)
+    private Product idProduct;
 
     public CartElement() {
     }
@@ -59,10 +57,8 @@ public class CartElement implements Serializable {
         this.idCartElement = idCartElement;
     }
 
-    public CartElement(Integer idCartElement, int idCart, int idProduct, int quantity) {
+    public CartElement(Integer idCartElement, int quantity) {
         this.idCartElement = idCartElement;
-        this.idCart = idCart;
-        this.idProduct = idProduct;
         this.quantity = quantity;
     }
 
@@ -74,28 +70,28 @@ public class CartElement implements Serializable {
         this.idCartElement = idCartElement;
     }
 
-    public int getIdCart() {
-        return idCart;
-    }
-
-    public void setIdCart(int idCart) {
-        this.idCart = idCart;
-    }
-
-    public int getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Cart getIdCart() {
+        return idCart;
+    }
+
+    public void setIdCart(Cart idCart) {
+        this.idCart = idCart;
+    }
+
+    public Product getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(Product idProduct) {
+        this.idProduct = idProduct;
     }
 
     @Override
