@@ -23,6 +23,12 @@ public class ShoppingCart {
         numberOfItems = 0;
         total = 0;
     }
+    
+        public ShoppingCart(List cart) {
+        items = cart;
+        numberOfItems = 0;
+        total = 0;
+    }
 
     /**
      * Adds a <code>ShoppingCartItem</code> to the <code>ShoppingCart</code>'s
@@ -39,7 +45,7 @@ public class ShoppingCart {
 
         for (ShoppingCartItem scItem : items) {
 
-            if (scItem.getProduct().getIdproduct()== product.getIdproduct()) {
+            if (scItem.getProduct()== product) {
 
                 newItem = false;
                 scItem.incrementQuantity();

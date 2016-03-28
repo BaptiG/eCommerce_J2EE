@@ -5,12 +5,16 @@
 package controller;
 
 import cart.ShoppingCart;
+import cart.ShoppingCartItem;
+import entity.Cart;
+import entity.CartElement;
 import entity.Category;
 import entity.Customer;
 import entity.CustomerOrder;
 import entity.Product;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -77,7 +81,6 @@ public class ControllerServlet extends HttpServlet {
         Category selectedCategory;
         Collection<Product> categoryProducts;
 
-
         if (userPath.equals("/index")) {
 
             userPath = "/index";
@@ -89,15 +92,12 @@ public class ControllerServlet extends HttpServlet {
 
             userPath = "/index";
 
-        }
-        else if (userPath.equals("/category")) {
+        } else if (userPath.equals("/category")) {
 
-            
             String categoryId = request.getQueryString();
 
             if (categoryId != null) {
 
-                
                 selectedCategory = categoryFacade.find(Integer.parseInt(categoryId));
 
                 // Change la catégorie selectionné
@@ -111,9 +111,7 @@ public class ControllerServlet extends HttpServlet {
 
             }
 
-          
         } else if (userPath.equals("/viewCart")) {
-         
 
             String clear = request.getParameter("clear");
 
@@ -124,8 +122,7 @@ public class ControllerServlet extends HttpServlet {
             }
 
             userPath = "/cart";
-        } 
-        else if (userPath.equals("/clearCart")) {
+        } else if (userPath.equals("/clearCart")) {
 
             ShoppingCart cart = (ShoppingCart) session.getAttribute("cart"); //Récupère le panier stocké dans la session
             cart.clear(); //Vide le panier
@@ -154,7 +151,6 @@ public class ControllerServlet extends HttpServlet {
             //  cart.calculateTotal(surcharge);
         }
 
-     
         String url = "";
         if (!"/index".equals(userPath)) {
             url = "/WEB-INF/view" + userPath + ".jsp";
@@ -185,8 +181,6 @@ public class ControllerServlet extends HttpServlet {
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 
-    
-        
         if (userPath.equals("/addToCart")) {
 
             if (cart == null) {
@@ -201,32 +195,23 @@ public class ControllerServlet extends HttpServlet {
 
                 Product product = productFacade.find(Integer.parseInt(productId));
                 cart.addItem(product); //On ajoute le produit au panier
-                
-    
-                 try {
+
+                try {
                     Customer customer = (Customer) session.getAttribute("customer");
-                    orderManager.addCartElement(customer.getIdCart(),product.getIdproduct());}
-                 
-                 catch(Exception ex){
-                     orderManager.addCartElement(222222,222222);
-                 
-                 }
-                
+                    orderManager.addCartElement(orderManager.getCart(customer, false), product);
+                } catch (Exception ex) {
+
                 }
-    
-            
-            
-          
-            
+
+            }
+
             if (request.getParameter("path").equals("category")) {
                 userPath = "/category";
             } else {
                 userPath = "/index";
             }
 
-     
         } else if (userPath.equals("/updateCart")) {
-       
 
             String productId = request.getParameter("productId");
             String quantity = request.getParameter("quantity");
@@ -234,9 +219,18 @@ public class ControllerServlet extends HttpServlet {
             Product product = productFacade.find(Integer.parseInt(productId));
             cart.update(product, quantity); // On met à jour un produit avec la quantité voulue
 
+            try {
+                // On essaye de se connecter à notre compte utilisateur
+                Customer customer = (Customer) session.getAttribute("customer");
+                orderManager.setCartElement(orderManager.getCart(customer, false), orderManager.getProduct(Integer.parseInt(productId)), Integer.parseInt(quantity));
+
+            } catch (Exception e) {
+
+                System.out.println(e.toString());
+            }
+
             userPath = "/cart";
 
-          
         } else if (userPath.equals("/register")) {
 
             if (request.getParameter("typeForm") != null) {
@@ -250,8 +244,44 @@ public class ControllerServlet extends HttpServlet {
                         Customer customer = orderManager.connectCustomer(nickname, password);
                         session.setAttribute("customer", customer);
 
+                        if (orderManager.getCart(customer, false) != null) {
+
+                        } else {
+                            orderManager.addCart(customer, Boolean.FALSE);
+                        }
+
+                        Cart cartBdd = orderManager.getCart(customer, false);
+
+                        //On verifie que le panier existe et donc que au moins un élément est présent
+                        if (cart != null) {
+                            // On remplit la base de donnée panier
+
+                            for (ShoppingCartItem sci : cart.getItems()) {
+                                orderManager.addCartElement(cartBdd, sci.getProduct());
+                                orderManager.setCartElement(cartBdd, sci.getProduct(), sci.getQuantity());
+                            }
+
+                        } else {
+                        }
+
+                        // On remplit le panier
+                        List<CartElement> listeElement = orderManager.addElementsToCart(cartBdd);
+                        if (listeElement.isEmpty()) {
+                        } else {
+                            cart = new ShoppingCart();
+                            session.setAttribute("cart", cart);
+
+                            for (CartElement element : listeElement) {
+
+                                Product product = orderManager.getProduct(element.getIdProduct().getIdproduct());
+                                cart.addItem(product);
+                                cart.update(product, Integer.toString(element.getQuantity()));
+
+                            }
+
+                        }
                     } catch (Exception e) {
-                        
+
                         System.out.println(e.toString());
                     }
 
@@ -266,7 +296,6 @@ public class ControllerServlet extends HttpServlet {
                     String address = request.getParameter("address");
                     String cityRegion = request.getParameter("cityRegion");
                     String ccNumber = request.getParameter("ccNumber");
-                    
 
                     orderManager.addCustomer(nickname, password, firstname, name, email, phone, address, cityRegion, ccNumber);
 
@@ -276,25 +305,16 @@ public class ControllerServlet extends HttpServlet {
             userPath = "/index";
 
         } else if (userPath.equals("/payment")) {
-            
-             CustomerOrder order= orderManager.placeOrder((Customer)session.getAttribute("customer"), cart);
-             orderManager.addOrderedItems(order, cart); 
 
-             cart.clear();
-             session.setAttribute("confirmationNumber",order.getConfirmationNumber());
-             userPath = "/confirmation";
-            
-            
-            
-          
-            
-            
-                    
+            CustomerOrder order = orderManager.placeOrder((Customer) session.getAttribute("customer"), cart);
+            orderManager.addOrderedItems(order, cart);
 
+            cart.clear();
+            session.setAttribute("confirmationNumber", order.getConfirmationNumber());
+            userPath = "/confirmation";
 
         }
 
-        
         String url = "";
         if (!"/index".equals(userPath)) {
             url = "/WEB-INF/view" + userPath + ".jsp";

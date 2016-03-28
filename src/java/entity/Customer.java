@@ -41,19 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone"),
     @NamedQuery(name = "Customer.findByAdress", query = "SELECT c FROM Customer c WHERE c.adress = :adress"),
     @NamedQuery(name = "Customer.findByCityRegion", query = "SELECT c FROM Customer c WHERE c.cityRegion = :cityRegion"),
-    @NamedQuery(name = "Customer.findByCcNumber", query = "SELECT c FROM Customer c WHERE c.ccNumber = :ccNumber")})
+    @NamedQuery(name = "Customer.findByCcNumber", query = "SELECT c FROM Customer c WHERE c.ccNumber = :ccNumber"),
+    @NamedQuery(name = "Customer.findByFidelityPoint", query = "SELECT c FROM Customer c WHERE c.fidelityPoint = :fidelityPoint")})
 public class Customer implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "fidelityPoint")
-    private int fidelityPoint;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "idCart")
-    private int idCart;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerIdcustomer")
-    private Collection<CustomerOrder> customerOrderCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -108,6 +98,14 @@ public class Customer implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "cc_number")
     private String ccNumber;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fidelityPoint")
+    private int fidelityPoint;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerIdcustomer")
+    private Collection<CustomerOrder> customerOrderCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCustomer")
+    private Collection<Cart> cartCollection;
 
     public Customer() {
     }
@@ -116,7 +114,7 @@ public class Customer implements Serializable {
         this.idcustomer = idcustomer;
     }
 
-    public Customer(Integer idcustomer, String nickname, String password, String firtname, String name, String email, String phone, String adress, String cityRegion, String ccNumber) {
+    public Customer(Integer idcustomer, String nickname, String password, String firtname, String name, String email, String phone, String adress, String cityRegion, String ccNumber, int fidelityPoint) {
         this.idcustomer = idcustomer;
         this.nickname = nickname;
         this.password = password;
@@ -127,6 +125,7 @@ public class Customer implements Serializable {
         this.adress = adress;
         this.cityRegion = cityRegion;
         this.ccNumber = ccNumber;
+        this.fidelityPoint = fidelityPoint;
     }
 
     public Integer getIdcustomer() {
@@ -209,6 +208,32 @@ public class Customer implements Serializable {
         this.ccNumber = ccNumber;
     }
 
+    public int getFidelityPoint() {
+        return fidelityPoint;
+    }
+
+    public void setFidelityPoint(int fidelityPoint) {
+        this.fidelityPoint = fidelityPoint;
+    }
+
+    @XmlTransient
+    public Collection<CustomerOrder> getCustomerOrderCollection() {
+        return customerOrderCollection;
+    }
+
+    public void setCustomerOrderCollection(Collection<CustomerOrder> customerOrderCollection) {
+        this.customerOrderCollection = customerOrderCollection;
+    }
+
+    @XmlTransient
+    public Collection<Cart> getCartCollection() {
+        return cartCollection;
+    }
+
+    public void setCartCollection(Collection<Cart> cartCollection) {
+        this.cartCollection = cartCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -232,31 +257,6 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return "entity.Customer[ idcustomer=" + idcustomer + " ]";
-    }
-
-    public int getFidelityPoint() {
-        return fidelityPoint;
-    }
-
-    public void setFidelityPoint(int fidelityPoint) {
-        this.fidelityPoint = fidelityPoint;
-    }
-
-    public int getIdCart() {
-        return idCart;
-    }
-
-    public void setIdCart(int idCart) {
-        this.idCart = idCart;
-    }
-
-    @XmlTransient
-    public Collection<CustomerOrder> getCustomerOrderCollection() {
-        return customerOrderCollection;
-    }
-
-    public void setCustomerOrderCollection(Collection<CustomerOrder> customerOrderCollection) {
-        this.customerOrderCollection = customerOrderCollection;
     }
     
 }

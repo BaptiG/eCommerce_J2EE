@@ -7,7 +7,6 @@ package entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -67,16 +66,13 @@ public class CustomerOrder implements Serializable {
     @JoinColumn(name = "customer_idcustomer", referencedColumnName = "idcustomer")
     @ManyToOne(optional = false)
     private Customer customerIdcustomer;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerOrder")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCustomerOrder")
     private Collection<OrderedProduct> orderedProductCollection;
 
     public CustomerOrder() {
-                java.util.Date date= new java.util.Date();
-    dateCreated = new Timestamp(date.getTime());
     }
 
     public CustomerOrder(Integer idcustomerOrder) {
-
         this.idcustomerOrder = idcustomerOrder;
     }
 
