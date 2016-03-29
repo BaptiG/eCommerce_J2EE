@@ -13,6 +13,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/Users/Baptiste/Documents/Netbeans%20Workspace/E-commerce%20JSP/src/java/session/OrderManager.java</file>
             <file>file:/Users/Baptiste/Documents/Netbeans%20Workspace/E-commerce%20JSP/src/java/entity/CartElement.java</file>
             <file>file:/Users/Baptiste/Documents/Netbeans%20Workspace/E-commerce%20JSP/setup/glassfish-resources.xml</file>
@@ -23,6 +24,9 @@
 =======
             <file>file:/home/zinzin/Documents/esiee/e4/J2EE/eCommerce_J2EE/web/WEB-INF/view/register.jsp</file>
 >>>>>>> fd61400cc04051d2698ac459b62afa0c9935bd7b
+=======
+            <file>file:/home/zinzin/Documents/esiee/e4/J2EE/eCommerce_J2EE/web/WEB-INF/view/register.jsp</file>
+>>>>>>> fd24dd5b39658c7d1b4287452e2394802c4002c0
         </group>
     </open-files>
 </project-private>
