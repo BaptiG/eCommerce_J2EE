@@ -135,16 +135,7 @@
                 $('.slider').slider('start');
 
             });
-<<<<<<< HEAD
-            
-=======
-            $("#sliderNext").click(function(){
-                
-                $('.slider').slider('next');
-        
-            });
-           
->>>>>>> fd24dd5b39658c7d1b4287452e2394802c4002c0
+
             
           });
     
@@ -174,11 +165,10 @@
                     </div>
 
                     <button type="submit" class="btn btn-default">Connexion</button>
-<<<<<<< HEAD
-=======
+
                     <a href="#" id="sliderNext" class="btn btn-primary">S'enregistrer</a>
 
->>>>>>> fd24dd5b39658c7d1b4287452e2394802c4002c0
+
              </form>
           </div>
         </li>
@@ -229,14 +219,10 @@
                         <input type="text" name="phone" class="form-control"  placeholder="Téléphone">
                     </div> -->
 
-<<<<<<< HEAD
+
 
                     <button type="submit" class="btn btn-default">S'enregistrer</button>
-=======
-                    
-                    <button type="submit" class="btn btn-default">S'enregistrer</button>
-                  
->>>>>>> fd24dd5b39658c7d1b4287452e2394802c4002c0
+
                 </form>
 
           </div>

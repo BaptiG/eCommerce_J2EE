@@ -416,6 +416,17 @@ Morbi tristique velit dictum nunc rhoncus, sed auctor eros placerat. Nunc luctus
               </p><br/><br/>
               <blockquote>
                   <h5><i class="fa fa-clock-o"></i> Vos dernières commandes</h5>
+                  
+                  ${customer.getName()}
+                  
+                   <c:forEach var="order" items="${orderSorted}" begin="0" end="11" step="1">
+            ${order.customerIdcustomer} 
+            ${order.amount}
+            ${order.idcustomerOrder}
+            <br/><br/>
+            
+            
+            </c:forEach>
               </blockquote>
                 </div>
             </div>

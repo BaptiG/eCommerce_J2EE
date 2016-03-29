@@ -124,6 +124,7 @@ public class OrderManager {
         Product product = em.find(Product.class, idProduct);
         return product;
     }
+    
 
     public Cart getCart(Customer idCustomer, Boolean isPaid) {
         
@@ -149,6 +150,15 @@ public class OrderManager {
 
         return listElement;
 
+    }
+    
+    public List getOrderByIdCustomer(Customer customerIdcustomer)
+    {
+    Query q = em.createQuery("SELECT co FROM CustomerOrder co WHERE co.customerIdcustomer = :customerIdcustomer");
+        q.setParameter("customerIdcustomer", customerIdcustomer);
+        List listElement = q.getResultList();
+
+        return listElement;
     }
 
     /* Méthode permettant de vérifier si un utilisateur existe dans la base de donnée et peut se connecter*/

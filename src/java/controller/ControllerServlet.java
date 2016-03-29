@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.CategoryFacade;
+import session.CustomerOrderFacade;
 import session.OrderManager;
 import session.ProductFacade;
 
@@ -40,6 +41,7 @@ import session.ProductFacade;
             "/updateCart",
             "/checkout",
             "/register",
+             "/viewProfil",
             "/payment", "/disconnect"})
 public class ControllerServlet extends HttpServlet {
 
@@ -62,6 +64,7 @@ public class ControllerServlet extends HttpServlet {
         getServletContext().setAttribute("categories", categoryFacade.findAll());
         getServletContext().setAttribute("productsSortedByDate", productFacade.findAllAndSortedByDate());
         getServletContext().setAttribute("productsSortedByPrice", productFacade.findAllAndSortedByPrice());
+     
     }
 
     /**
@@ -122,6 +125,13 @@ public class ControllerServlet extends HttpServlet {
             }
 
             userPath = "/cart";
+        } else if (userPath.equals("/viewprofil")) {
+
+           
+ getServletContext().setAttribute("orderSorted", orderManager.getOrderByIdCustomer((Customer) session.getAttribute("customer")) );
+           
+
+            userPath = "/viewprofil";
         } else if (userPath.equals("/clearCart")) {
 
             ShoppingCart cart = (ShoppingCart) session.getAttribute("cart"); //Récupère le panier stocké dans la session
