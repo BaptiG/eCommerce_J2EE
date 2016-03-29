@@ -15,9 +15,8 @@
 		<!----webfonts---->
 		<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
 		<!----//webfonts---->
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+
 		<!--  jquery plguin -->
 	</head>
         <style>
