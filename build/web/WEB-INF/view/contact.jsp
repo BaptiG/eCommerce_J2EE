@@ -50,6 +50,7 @@
             .my-form
             {
                 padding:25px;
+
             }
            
             .my-form div label
@@ -59,6 +60,11 @@
             .form-group
             {
                 padding-top:52px;
+               
+            }
+            .form-control
+            {
+                color:white;
             }
             
         </style>
