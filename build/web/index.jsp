@@ -429,7 +429,7 @@
                             window.location.href = "./category?1";                          
                          });
                          $( "#cLaptop" ).click(function() {
-                            window.location.href = "./category?2";                          
+                            window.location.href = "./category?6";                          
                          });
                          $( "#cTablet" ).click(function() {
                             window.location.href = "./category?3";                          
@@ -641,7 +641,7 @@
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(220,220,220,1)",
-                        data: [65, 59, 80, 81, 56, 55, 40]
+                        data: [65, 59, 20, 61, 56, 55, 40]
                     },
                     {
                         label: "",
@@ -651,7 +651,7 @@
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(151,187,205,1)",
-                        data: [28, 48, 40, 19, 86, 27, 90]
+                        data: [28, 48, 40, 19, 22, 27, 45]
                     }
                 ]
             };
