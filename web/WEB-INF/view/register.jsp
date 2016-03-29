@@ -135,7 +135,12 @@
                 $('.slider').slider('start');
 
             });
-            
+            $("#sliderNext").click(function(){
+                
+                $('.slider').slider('next');
+        
+            });
+           
             
           });
     
@@ -165,6 +170,8 @@
                     </div>
 
                     <button type="submit" class="btn btn-default">Connexion</button>
+                    <a href="#" id="sliderNext" class="btn btn-primary">S'enregistrer</a>
+
              </form>
           </div>
         </li>
@@ -215,8 +222,9 @@
                         <input type="text" name="phone" class="form-control"  placeholder="Téléphone">
                     </div> -->
 
-
+                    
                     <button type="submit" class="btn btn-default">S'enregistrer</button>
+                  
                 </form>
 
           </div>

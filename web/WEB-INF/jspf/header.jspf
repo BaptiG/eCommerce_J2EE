@@ -168,7 +168,16 @@
         <li>            
              <c:choose>
                 <c:when test="${customer != null}">
-                    <a href="./viewProfil"><i class="fa fa-user"></i> ${customer.getNickname()}</a>  
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> ${customer.getNickname()} <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                     
+                  <li><a href="./viewprofil"><i class="fa fa-user"></i> Mon profil</a></li>
+                  <li class="divider"></li>
+                  <li><a href="./disconnect"><i class="fa fa-power-off"></i> Se déconnecter</a></li>
+                </ul>    
+                </li>
+                   
                 </c:when>
                 <c:otherwise>
                           <a href="./register"><i class="fa fa-user"></i> Se connecter</a>
