@@ -11,6 +11,7 @@ import entity.CartElement;
 import entity.Category;
 import entity.Customer;
 import entity.CustomerOrder;
+import entity.OrderedProduct;
 import entity.Product;
 import java.io.IOException;
 import java.util.Collection;
@@ -64,7 +65,7 @@ public class ControllerServlet extends HttpServlet {
         getServletContext().setAttribute("categories", categoryFacade.findAll());
         getServletContext().setAttribute("productsSortedByDate", productFacade.findAllAndSortedByDate());
         getServletContext().setAttribute("productsSortedByPrice", productFacade.findAllAndSortedByPrice());
-     
+    
     }
 
     /**
@@ -128,8 +129,9 @@ public class ControllerServlet extends HttpServlet {
         } else if (userPath.equals("/viewprofil")) {
 
            
- getServletContext().setAttribute("orderSorted", orderManager.getOrderByIdCustomer((Customer) session.getAttribute("customer")) );
-           
+ getServletContext().setAttribute("orderSorted", (List) orderManager.getOrderByIdCustomer((Customer) session.getAttribute("customer")) );
+
+      
 
             userPath = "/viewprofil";
         } else if (userPath.equals("/clearCart")) {

@@ -160,6 +160,14 @@ public class OrderManager {
 
         return listElement;
     }
+     public List getOrderProductByIdOrder(CustomerOrder idCustomerOrder)
+    {
+    Query q = em.createQuery("SELECT op FROM OrderedProduct op WHERE op.idCustomerOrder = :idCustomerOrder");
+        q.setParameter("idCustomerOrder", idCustomerOrder);
+        List listElement = q.getResultList();
+
+        return listElement;
+    }
 
     /* Méthode permettant de vérifier si un utilisateur existe dans la base de donnée et peut se connecter*/
     public Customer connectCustomer(String nickname, String password) {
