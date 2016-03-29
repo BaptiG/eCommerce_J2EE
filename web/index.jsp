@@ -472,7 +472,7 @@
        
       
         <div class="row">
-            <c:forEach var="product" items="${productsSortedByDate}" begin="0" end="10" step="1">
+            <c:forEach var="product" items="${productsSortedByDate}" begin="0" end="11" step="1">
             <div class="col-md-4">
                 
                 
@@ -537,7 +537,7 @@
 
 
           
-            <c:forEach var="product" items="${productsSortedByPrice}" begin="0" end="10" step="1">
+            <c:forEach var="product" items="${productsSortedByPrice}" begin="0" end="11" step="1">
             <div class="col-md-4">
                 
                 
