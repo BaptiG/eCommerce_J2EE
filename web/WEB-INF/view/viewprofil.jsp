@@ -34,24 +34,61 @@
             }
             
             
-        </style>
+    </style>
+    <script>
+          $(document).ready(function(){
+             
+             $("#main-div").css("min-height","1100px")
+             $("#edit-profil-div").css("display","none");
+             $("#edit-profil-more-div").css("display","none");
+             $( "#button-edit" ).click(function() {
+                $("#edit-profil-div").css("display","block");
+                $("#edit-profil-more-div").css("display","block");
+                $("#main-div").css("min-height","1600px")
+
+            });
+        
+          });
+    </script>
     <body>
        <div class="row" style="background-color: #2196f3;height:400px;margin-left:0;margin-right:0;">
                
                
            </div>
-           <div class="row" style="min-height: 1300px;">
+           <div class="row" id="main-div">
                
                
            </div>
             <div class="card-about">
-                <div style="padding:2em;">
-                <h2><i class="fa fa-user"></i> Votre profil client</h2>
+                <div  style="padding:2em;">
+                    <h2><i class="fa fa-user"></i> Votre profil client <a id="button-edit" href="#" style="float:right;" alt="éditer vos informations personnelles"><i class="fa fa-pencil"></i></a></h2>
                 <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
                 <blockquote>
+                <div id="profil-div">
                 <form class="form-horizontal">
                 <fieldset>
                     <legend><i class="fa fa-info-circle"></i> Informations utilisateur</legend>
+                     <div class="form-group">
+                        <div class="col-lg-2 control-label">Surnom : </div>
+                        <div class="col-lg-10">
+                            <p style="line-height:44px;">${customer.getNickname()}</p>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-lg-2 control-label">E-mail : </div>
+                        <div class="col-lg-10">
+                            <p style="line-height:44px;">${customer.getEmail()}</p>
+                        </div>
+                      </div>
+                </fieldset>
+                </form>
+                    
+                    
+                </div>
+                <div id="edit-profil-div">
+                <form class="form-horizontal">
+                <fieldset>
+                    <legend><i class="fa fa-pencil"></i> Edition informations utilisateur</legend>
                   <div class="form-group">
                     <label for="inputEmail" class="col-lg-2 control-label">Surnom</label>
                     <div class="col-lg-10">
@@ -77,13 +114,101 @@
                     </div>
                   </div>
                 </fieldset>
-              </form>    
+              </form> 
+                </div>
                 </blockquote>
                 <p><small>This line of text is meant to be treated as fine print.</small></p>    
                 <blockquote>
+                <div id="profil-more-div">
+                    <form class="form-horizontal">
+                    <fieldset>
+                      <legend><i class="fa fa-home"></i> Adresse de facturation</legend>
+                      <div class="form-group">
+                        <div class="col-lg-2 control-label">Nom : </div>
+                        <div class="col-lg-4">
+                            <c:choose>
+                                <c:when test="${customer.getName() != null}">
+                                    <p style="line-height:44px;">${customer.getName()}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p style="line-height:44px;">Vous n'avez pas renseigné de nom.</p>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                        </div>
+                        <div class="col-lg-2 control-label">Ville : </div>
+                        <div class="col-lg-4">
+                            <c:choose>
+                                <c:when test="${customer.getCityRegion() != null}">
+                                    <p style="line-height:44px;">${customer.getCityRegion()}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p style="line-height:44px;">Vous n'avez pas renseigné de ville.</p>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-lg-2 control-label">Prénom : </div>
+                        <div class="col-lg-4">
+                            <c:choose>
+                                <c:when test="${customer.getFirtname() != null}">
+                                    <p style="line-height:44px;">${customer.getFirtname()}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p style="line-height:44px;">Vous n'avez pas renseigné de prénom.</p>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                        </div>
+                        <div class="col-lg-2 control-label">Code postal : </div>
+                        <div class="col-lg-4">
+                            <c:choose>
+                                <c:when test="${customer.getCcNumber() != null}">
+                                    <p style="line-height:44px;">${customer.getCcNumber()}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p style="line-height:44px;">Vous n'avez pas renseigné de code postal.</p>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-lg-2 control-label">Rue : </div>
+                        <div class="col-lg-4">
+                            <c:choose>
+                                <c:when test="${customer.getAdress() != null}">
+                                    <p style="line-height:44px;">${customer.getAdress()}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p style="line-height:44px;">Vous n'avez pas renseigné de rue.</p>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                        </div>
+                        <div class="col-lg-2 control-label">Téléphone : </div>
+                        <div class="col-lg-4">
+                            <c:choose>
+                                <c:when test="${customer.getPhone() != null}">
+                                    <p style="line-height:44px;">${customer.getPhone()}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p style="line-height:44px;">Vous n'avez pas renseigné de téléphone.</p>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                        </div>
+                        
+                      </div>
+                    </fieldset>
+                    </form>
+                </div>
+                <div id="edit-profil-more-div">
                 <form class="form-horizontal">
                 <fieldset>
-                  <legend><i class="fa fa-home"></i> Adresse de facturation</legend>
+                  <legend><i class="fa fa-pencil"></i> Edition adresse de facturation</legend>
                   <div class="form-group">
                     <label for="inputEmail" class="col-lg-2 control-label">Nom</label>
                     <div class="col-lg-10">
@@ -406,6 +531,7 @@
                   </div>
                 </fieldset>
               </form>
+              </div>
               </blockquote><br/><br/>
               <p class="text-muted">
                   

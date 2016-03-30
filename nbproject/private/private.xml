@@ -12,10 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/zinzin/Documents/esiee/e4/J2EE/eCommerce_J2EE/web/WEB-INF/view/contact.jsp</file>
-
-            <file>file:/home/zinzin/Documents/esiee/e4/J2EE/eCommerce_J2EE/web/WEB-INF/view/register.jsp</file>
-
+            <file>file:/home/zinzin/Documents/esiee/e4/J2EE/eCommerce_J2EE/web/WEB-INF/view/checkout.jsp</file>
+            <file>file:/home/zinzin/Documents/esiee/e4/J2EE/eCommerce_J2EE/web/WEB-INF/view/viewprofil.jsp</file>
+            <file>file:/home/zinzin/Documents/esiee/e4/J2EE/eCommerce_J2EE/web/WEB-INF/view/cart.jsp</file>
+            <file>file:/home/zinzin/Documents/esiee/e4/J2EE/eCommerce_J2EE/web/WEB-INF/view/about.jsp</file>
         </group>
     </open-files>
 </project-private>
