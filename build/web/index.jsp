@@ -446,16 +446,16 @@
       <div class="container-square" align="center">
           
           <div class="row">
-              <div class="col-md-3 square square-pink waves-effect waves-block waves-light" id="cComputer">
+              <div class="col-md-3 col-xs-3 col-sm-3 square square-pink waves-effect waves-block waves-light" id="cComputer">
                   <a href="./category?1"><i class="fa fa-desktop"></i></a>
               </div>
-              <div class="col-md-3 square square-red waves-effect waves-block waves-light" id="cLaptop">
+              <div class="col-md-3 col-xs-3 col-sm-3 square square-red waves-effect waves-block waves-light" id="cLaptop">
                    <a href="./category?2"><i class="fa fa-laptop"></i></a>
               </div>
-              <div class="col-md-3 square square-blue waves-effect waves-block waves-light" id="cTablet">
+              <div class="col-md-3 col-xs-3 col-sm-3 square square-blue waves-effect waves-block waves-light" id="cTablet">
                    <a href="./category?3"><i class="fa fa-tablet"></i></a>
               </div>
-              <div class="col-md-3 square square-yellow waves-effect waves-block waves-light" id="cAccess">
+              <div class="col-md-3 col-xs-3 col-sm-3 square square-yellow waves-effect waves-block waves-light" id="cAccess">
                    <a href="./category?4"><i class="fa fa-plug"></i></a>
               </div>
           </div>
