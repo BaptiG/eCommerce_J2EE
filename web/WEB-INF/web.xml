@@ -9,6 +9,7 @@
         <jsp-property-group>
             <description>header and footer settings</description>
             <url-pattern>/contact.jsp</url-pattern>
+             <url-pattern>/confirmation.jsp</url-pattern>
             <url-pattern>/index.jsp</url-pattern>
             <url-pattern>/checkout.jsp</url-pattern>
             <url-pattern>/about.jsp</url-pattern>
@@ -49,6 +50,10 @@
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+       <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/confirmation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>

@@ -43,7 +43,7 @@ import session.ProductFacade;
             "/checkout",
             "/register",
              "/viewProfil",
-            "/payment", "/disconnect"})
+            "/payment","/confirmation", "/disconnect"})
 public class ControllerServlet extends HttpServlet {
 
     private String surcharge;
@@ -65,7 +65,7 @@ public class ControllerServlet extends HttpServlet {
         getServletContext().setAttribute("categories", categoryFacade.findAll());
         getServletContext().setAttribute("productsSortedByDate", productFacade.findAllAndSortedByDate());
         getServletContext().setAttribute("productsSortedByPrice", productFacade.findAllAndSortedByPrice());
-    
+        getServletContext().setAttribute("orderManager", orderManager);
     }
 
     /**
@@ -134,7 +134,11 @@ public class ControllerServlet extends HttpServlet {
       
 
             userPath = "/viewprofil";
-        } else if (userPath.equals("/clearCart")) {
+        } else if (userPath.equals("/confirmation")) {
+
+
+            userPath = "/confirmation";
+        }  else if (userPath.equals("/clearCart")) {
 
             ShoppingCart cart = (ShoppingCart) session.getAttribute("cart"); //Récupère le panier stocké dans la session
             cart.clear(); //Vide le panier
@@ -301,15 +305,37 @@ public class ControllerServlet extends HttpServlet {
 
                     String nickname = request.getParameter("nickname");
                     String password = request.getParameter("password");
-                    String firstname = request.getParameter("firstname");
-                    String name = request.getParameter("name");
+                   
                     String email = request.getParameter("email");
-                    String phone = request.getParameter("phone");
+           
+
+                    orderManager.addCustomer(nickname,password,email);
+
+                }
+                else if (typeFormulaire.equals("editUserInfo")) {
+
+                    String nickname = request.getParameter("nickname");
+                    String email = request.getParameter("email");
+                   
+                    session.setAttribute("customer", orderManager.editUserInfo((Customer) session.getAttribute("customer"),nickname,email));
+                }
+                else if (typeFormulaire.equals("editFactureInfo")) {
+
+                    
+                   String firstname = request.getParameter("firstname");
+                    String name = request.getParameter("name");
+                    String civility = request.getParameter("civility");
                     String address = request.getParameter("address");
                     String cityRegion = request.getParameter("cityRegion");
                     String ccNumber = request.getParameter("ccNumber");
+                    String country=request.getParameter("country");
+                    String phone = request.getParameter("phone");
 
-                    orderManager.addCustomer(nickname, password, firstname, name, email, phone, address, cityRegion, ccNumber);
+                   
+                
+
+                   
+                     session.setAttribute("customer",  orderManager.editFactureInfo((Customer) session.getAttribute("customer"),firstname, name, civility, address, cityRegion, ccNumber, country, phone));
 
                 }
             }
@@ -321,7 +347,7 @@ public class ControllerServlet extends HttpServlet {
             CustomerOrder order = orderManager.placeOrder((Customer) session.getAttribute("customer"), cart);
             orderManager.addOrderedItems(order, cart);
 
-            cart.clear();
+            //cart.clear();
             session.setAttribute("confirmationNumber", order.getConfirmationNumber());
             userPath = "/confirmation";
 

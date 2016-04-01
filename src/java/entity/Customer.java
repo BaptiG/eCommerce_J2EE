@@ -6,9 +6,7 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,12 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,12 +33,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password"),
     @NamedQuery(name = "Customer.findByFirtname", query = "SELECT c FROM Customer c WHERE c.firtname = :firtname"),
     @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name"),
+    @NamedQuery(name = "Customer.findByCivility", query = "SELECT c FROM Customer c WHERE c.civility = :civility"),
     @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
     @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone"),
     @NamedQuery(name = "Customer.findByAdress", query = "SELECT c FROM Customer c WHERE c.adress = :adress"),
     @NamedQuery(name = "Customer.findByCityRegion", query = "SELECT c FROM Customer c WHERE c.cityRegion = :cityRegion"),
     @NamedQuery(name = "Customer.findByCcNumber", query = "SELECT c FROM Customer c WHERE c.ccNumber = :ccNumber"),
-    @NamedQuery(name = "Customer.findByFidelityPoint", query = "SELECT c FROM Customer c WHERE c.fidelityPoint = :fidelityPoint")})
+    @NamedQuery(name = "Customer.findByFidelityPoint", query = "SELECT c FROM Customer c WHERE c.fidelityPoint = :fidelityPoint"),
+    @NamedQuery(name = "Customer.findByCountry", query = "SELECT c FROM Customer c WHERE c.country = :country")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,16 +59,15 @@ public class Customer implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "password")
     private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "firtname")
     private String firtname;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "name")
     private String name;
+    @Size(max = 10)
+    @Column(name = "civility")
+    private String civility;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -78,34 +75,25 @@ public class Customer implements Serializable {
     @Column(name = "email")
     private String email;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "phone")
     private String phone;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "adress")
     private String adress;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "city_region")
     private String cityRegion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "cc_number")
     private String ccNumber;
     @Basic(optional = false)
     @NotNull
     @Column(name = "fidelityPoint")
     private int fidelityPoint;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerIdcustomer")
-    private Collection<CustomerOrder> customerOrderCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCustomer")
-    private Collection<Cart> cartCollection;
+    @Size(max = 45)
+    @Column(name = "country")
+    private String country;
 
     public Customer() {
     }
@@ -114,17 +102,11 @@ public class Customer implements Serializable {
         this.idcustomer = idcustomer;
     }
 
-    public Customer(Integer idcustomer, String nickname, String password, String firtname, String name, String email, String phone, String adress, String cityRegion, String ccNumber, int fidelityPoint) {
+    public Customer(Integer idcustomer, String nickname, String password, String email, int fidelityPoint) {
         this.idcustomer = idcustomer;
         this.nickname = nickname;
         this.password = password;
-        this.firtname = firtname;
-        this.name = name;
         this.email = email;
-        this.phone = phone;
-        this.adress = adress;
-        this.cityRegion = cityRegion;
-        this.ccNumber = ccNumber;
         this.fidelityPoint = fidelityPoint;
     }
 
@@ -166,6 +148,14 @@ public class Customer implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCivility() {
+        return civility;
+    }
+
+    public void setCivility(String civility) {
+        this.civility = civility;
     }
 
     public String getEmail() {
@@ -216,22 +206,12 @@ public class Customer implements Serializable {
         this.fidelityPoint = fidelityPoint;
     }
 
-    @XmlTransient
-    public Collection<CustomerOrder> getCustomerOrderCollection() {
-        return customerOrderCollection;
+    public String getCountry() {
+        return country;
     }
 
-    public void setCustomerOrderCollection(Collection<CustomerOrder> customerOrderCollection) {
-        this.customerOrderCollection = customerOrderCollection;
-    }
-
-    @XmlTransient
-    public Collection<Cart> getCartCollection() {
-        return cartCollection;
-    }
-
-    public void setCartCollection(Collection<Cart> cartCollection) {
-        this.cartCollection = cartCollection;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override

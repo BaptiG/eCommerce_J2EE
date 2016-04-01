@@ -6,11 +6,8 @@
 package entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,13 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -49,11 +44,10 @@ public class CustomerOrder implements Serializable {
     @Basic(optional = false)
     @Column(name = "idcustomer_order")
     private Integer idcustomerOrder;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "amount")
-    private BigDecimal amount;
+    private double amount;
     @Basic(optional = false)
     @NotNull
     @Column(name = "date_created")
@@ -66,8 +60,6 @@ public class CustomerOrder implements Serializable {
     @JoinColumn(name = "customer_idcustomer", referencedColumnName = "idcustomer")
     @ManyToOne(optional = false)
     private Customer customerIdcustomer;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCustomerOrder")
-    private Collection<OrderedProduct> orderedProductCollection;
 
     public CustomerOrder() {
     }
@@ -76,7 +68,7 @@ public class CustomerOrder implements Serializable {
         this.idcustomerOrder = idcustomerOrder;
     }
 
-    public CustomerOrder(Integer idcustomerOrder, BigDecimal amount, Date dateCreated, int confirmationNumber) {
+    public CustomerOrder(Integer idcustomerOrder, double amount, Date dateCreated, int confirmationNumber) {
         this.idcustomerOrder = idcustomerOrder;
         this.amount = amount;
         this.dateCreated = dateCreated;
@@ -91,11 +83,11 @@ public class CustomerOrder implements Serializable {
         this.idcustomerOrder = idcustomerOrder;
     }
 
-    public BigDecimal getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -121,15 +113,6 @@ public class CustomerOrder implements Serializable {
 
     public void setCustomerIdcustomer(Customer customerIdcustomer) {
         this.customerIdcustomer = customerIdcustomer;
-    }
-
-    @XmlTransient
-    public Collection<OrderedProduct> getOrderedProductCollection() {
-        return orderedProductCollection;
-    }
-
-    public void setOrderedProductCollection(Collection<OrderedProduct> orderedProductCollection) {
-        this.orderedProductCollection = orderedProductCollection;
     }
 
     @Override

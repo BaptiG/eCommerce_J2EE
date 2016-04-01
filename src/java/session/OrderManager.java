@@ -10,6 +10,8 @@ import entity.CustomerOrder;
 import entity.OrderedProduct;
 import entity.Product;
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.annotation.Resource;
@@ -40,7 +42,6 @@ public class OrderManager {
         CustomerOrder order = addOrder(customer, cart);
 
         return order;
-        //Customer customer = addCustomer(nickname, password, firstname,name,email,phone, address, cityRegion, ccNumber);
 
     }
 
@@ -53,19 +54,13 @@ public class OrderManager {
     }
 
     /* Méthode permettant d'enregistrer un utilisateur dans la base de donnée*/
-    public void addCustomer(String nickname, String password, String firstname, String name, String email, String phone, String address, String cityRegion, String ccNumber) {
+    public void addCustomer(String nickname, String password, String email) {
 
         Customer customer = new Customer();
 
         customer.setNickname(nickname);
         customer.setPassword(password);
-        customer.setFirtname(firstname);
-        customer.setName(name);
         customer.setEmail(email);
-        customer.setPhone(phone);
-        customer.setAdress(address);
-        customer.setCityRegion(cityRegion);
-        customer.setCcNumber(ccNumber);
 
         em.persist(customer);
         em.flush();
@@ -124,22 +119,24 @@ public class OrderManager {
         Product product = em.find(Product.class, idProduct);
         return product;
     }
-    
+
+    public Customer getCustomer(int idCustomer) {
+        Customer customer = em.find(Customer.class, idCustomer);
+        return customer;
+    }
 
     public Cart getCart(Customer idCustomer, Boolean isPaid) {
-        
-        
-         try {
-        Query q = em.createQuery("SELECT cart FROM Cart cart WHERE cart.idCustomer = :idCustomer AND cart.isPaid = :isPaid");
-        q.setParameter("idCustomer", idCustomer);
-         q.setParameter("isPaid", isPaid);
-       
+
+        try {
+            Query q = em.createQuery("SELECT cart FROM Cart cart WHERE cart.idCustomer = :idCustomer AND cart.isPaid = :isPaid");
+            q.setParameter("idCustomer", idCustomer);
+            q.setParameter("isPaid", isPaid);
+
             Cart cart = (Cart) q.getSingleResult();
             return cart;
         } catch (Exception ex) {
             return null;
         }
-
 
     }
 
@@ -151,18 +148,17 @@ public class OrderManager {
         return listElement;
 
     }
-    
-    public List getOrderByIdCustomer(Customer customerIdcustomer)
-    {
-    Query q = em.createQuery("SELECT co FROM CustomerOrder co WHERE co.customerIdcustomer = :customerIdcustomer");
+
+    public List getOrderByIdCustomer(Customer customerIdcustomer) {
+        Query q = em.createQuery("SELECT co FROM CustomerOrder co WHERE co.customerIdcustomer = :customerIdcustomer");
         q.setParameter("customerIdcustomer", customerIdcustomer);
         List listElement = q.getResultList();
 
         return listElement;
     }
-     public List getOrderProductByIdOrder(CustomerOrder idCustomerOrder)
-    {
-    Query q = em.createQuery("SELECT op FROM OrderedProduct op WHERE op.idCustomerOrder = :idCustomerOrder");
+
+    public List getOrderProductByIdOrder(CustomerOrder idCustomerOrder) {
+        Query q = em.createQuery("SELECT op FROM OrderedProduct op WHERE op.idCustomerOrder = :idCustomerOrder");
         q.setParameter("idCustomerOrder", idCustomerOrder);
         List listElement = q.getResultList();
 
@@ -190,7 +186,11 @@ public class OrderManager {
 
         CustomerOrder order = new CustomerOrder();
         order.setCustomerIdcustomer(customer);
-        order.setAmount(BigDecimal.valueOf(cart.getTotal()));
+        order.setAmount(cart.getTotal());
+
+        // Creation d'une date car le default sur la BDD ne marche pas : Constraint Violation
+        java.util.Date date = Calendar.getInstance().getTime();
+        order.setDateCreated(date);
 
         Random random = new Random();
         int i = random.nextInt(999999999);
@@ -220,5 +220,37 @@ public class OrderManager {
             orderedItem.setQuantity(scItem.getQuantity());
             em.persist(orderedItem);
         }
+    }
+
+    public Customer editUserInfo(Customer customer, String nickname, String email) {
+
+          Customer customer1 = em.find(Customer.class, customer.getIdcustomer());
+     
+        
+        
+        customer1.setNickname(nickname);
+        customer1.setEmail(email);
+        em.persist(customer1);
+        return customer1;
+        
+
+    }
+
+    public Customer editFactureInfo(Customer customer, String firstname, String name, String civility, String address, String cityRegion, String ccNumber, String country, String phone) {
+
+        Customer customer2 = em.find(Customer.class, customer.getIdcustomer());
+        customer2.setFirtname(firstname);
+        customer2.setName(name);
+        customer2.setCivility(civility);
+        customer2.setAdress(address);
+        customer2.setCityRegion(cityRegion);
+        customer2.setCcNumber(ccNumber);
+        customer2.setCountry(country);
+        customer2.setPhone(phone);
+
+
+         em.persist(customer2);
+        return customer2;
+
     }
 }

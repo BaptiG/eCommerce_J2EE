@@ -179,12 +179,11 @@
                 <c:choose>
                     <c:when test="${cart.getSubtotal()>500}">         
                         <h2 style="float:right;"><i class="fa fa-credit-card"></i> Total à payer : <b>  ${cart.calculateTotal(0)} ${cart.getTotal()} &euro;  </b> 
-                            
+                       
                              <c:choose>
-                                 <c:when test="${customer.getAdress() != null} && ${customer.getCityRegion() != null} && ${customer.getCcNumber() != null}}">
-                                     <p class="small">Adresse de livraison : ${customer.getAdress()}</p>
-                                     <p class="small">Ville :${customer.getCityRegion()}</p>
-                                     <p class="small">Code postal : ${customer.getCcNumber()}</p></h2>
+                                 <c:when test="${customer.getAdress()!= null && customer.getCityRegion() != null && customer.getCcNumber() != null}">
+                                     <br/>
+                                               <a href="./payment" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Procéder au paiement</a>
                                  </c:when>
                                  <c:otherwise>
                                      <p class="small" style="margin-top:15px;"><i class="fa fa-warning"></i> Votre profil est incomplet, <a href="./viewprofil" style="color:red;">cliquez ici pour le compléter</a> et finaliser la transaction.</p>
