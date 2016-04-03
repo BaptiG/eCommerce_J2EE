@@ -13,9 +13,10 @@
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		</script>
 		<!----webfonts---->
-		<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
+		
 		<!----//webfonts---->
 		<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+                <script type="text/javascript" src="js/materialize.js"></script>
     </head>
     <style>
             
@@ -32,19 +33,313 @@
                 box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
                 
             }
+
+           .z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav {
+               box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+             }
+
+           .card-panel {
+               transition: box-shadow .25s;
+               padding: 20px;
+               margin: 0.5rem 0 1rem 0;
+               border-radius: 2px;
+               background-color: #fff;
+             }
+
+             .card {
+               position: relative;
+               margin: 0.5rem 0 1rem 0;
+               background-color: #fff;
+               transition: box-shadow .25s;
+               border-radius: 2px;
+             }
+
+             .card .card-title {
+               font-size: 24px;
+               font-weight: 300;
+             }
+
+             .card .card-title.activator {
+               cursor: pointer;
+             }
+
+             .card.small, .card.medium, .card.large {
+               position: relative;
+             }
+
+             .card.small .card-image, .card.medium .card-image, .card.large .card-image {
+               max-height: 60%;
+               overflow: hidden;
+             }
+
+             .card.small .card-content, .card.medium .card-content, .card.large .card-content {
+               max-height: 40%;
+               overflow: hidden;
+             }
+
+             .card.small .card-action, .card.medium .card-action, .card.large .card-action {
+               position: absolute;
+               bottom: 0;
+               left: 0;
+               right: 0;
+               z-index: 1;
+               background-color: inherit;
+             }
+
+             .card.small {
+               height: 300px;
+             }
+
+             .card.medium {
+               height: 400px;
+             }
+
+             .card.large {
+               height: 500px;
+             }
+
+             .card .card-image {
+               position: relative;
+             }
+
+             .card .card-image img {
+               display: block;
+               border-radius: 2px 2px 0 0;
+               position: relative;
+               left: 0;
+               right: 0;
+               top: 0;
+               bottom: 0;
+               width: 100%;
+             }
+
+             .card .card-image .card-title {
+               color: #fff;
+               position: absolute;
+               bottom: 0;
+               left: 0;
+               padding: 20px;
+             }
+
+             .card .card-content {
+               padding: 20px;
+               border-radius: 0 0 2px 2px;
+             }
+
+             .card .card-content p {
+               margin: 0;
+               color: inherit;
+             }
+
+             .card .card-content .card-title {
+               line-height: 48px;
+             }
+
+             .card .card-action {
+               border-top: 1px solid rgba(160, 160, 160, 0.2);
+               padding: 20px;
+             }
+
+             .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+               color: #ffab40;
+               margin-right: 20px;
+               transition: color .3s ease;
+               text-transform: uppercase;
+             }
+
+             .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {
+               color: #ffd8a6;
+             }
+
+             .card .card-reveal {
+               padding: 20px;
+               position: absolute;
+               background-color: #fff;
+               width: 100%;
+               overflow-y: auto;
+               top: 100%;
+               height: 100%;
+               z-index: 1;
+               display: none;
+             }
+
+             .card .card-reveal .card-title {
+               cursor: pointer;
+               display: block;
+             }
+           .waves-effect {
+               position: relative;
+               cursor: pointer;
+               display: inline-block;
+               overflow: hidden;
+               -webkit-user-select: none;
+               -moz-user-select: none;
+               -ms-user-select: none;
+               user-select: none;
+               -webkit-tap-highlight-color: transparent;
+               vertical-align: middle;
+               z-index: 1;
+               will-change: opacity, transform;
+               transition: all .3s ease-out;
+               }
+
+               .waves-effect .waves-ripple {
+               position: absolute;
+               border-radius: 50%;
+               width: 20px;
+               height: 20px;
+               margin-top: -10px;
+               margin-left: -10px;
+               opacity: 0;
+               background: rgba(0, 0, 0, 0.2);
+               transition: all 0.7s ease-out;
+               transition-property: opacity, -webkit-transform;
+               transition-property: transform, opacity;
+               transition-property: transform, opacity, -webkit-transform;
+               -webkit-transform: scale(0);
+                transform: scale(0);
+               pointer-events: none;
+               }
+
+               .waves-effect.waves-light .waves-ripple {
+               background-color: rgba(255, 255, 255, 0.45);
+               }
+
+               .waves-effect.waves-red .waves-ripple {
+               background-color: rgba(244, 67, 54, 0.7);
+               }
+
+               .waves-effect.waves-yellow .waves-ripple {
+               background-color: rgba(255, 235, 59, 0.7);
+               }
+
+               .waves-effect.waves-orange .waves-ripple {
+               background-color: rgba(255, 152, 0, 0.7);
+               }
+
+               .waves-effect.waves-purple .waves-ripple {
+               background-color: rgba(156, 39, 176, 0.7);
+               }
+
+               .waves-effect.waves-green .waves-ripple {
+               background-color: rgba(76, 175, 80, 0.7);
+               }
+
+               .waves-effect.waves-teal .waves-ripple {
+               background-color: rgba(0, 150, 136, 0.7);
+               }
+
+               .waves-effect input[type="button"], .waves-effect input[type="reset"], .waves-effect input[type="submit"] {
+               border: 0;
+               font-style: normal;
+               font-size: inherit;
+               text-transform: inherit;
+               background: none;
+               }
+
+               .waves-notransition {
+               transition: none !important;
+               }
+
+               .waves-circle {
+               -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+               -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+               }
+
+               .waves-input-wrapper {
+               border-radius: 0.2em;
+               vertical-align: bottom;
+               }
+
+               .waves-input-wrapper .waves-button-input {
+               position: relative;
+               top: 0;
+               left: 0;
+               z-index: 1;
+               }
+
+               .waves-circle {
+               text-align: center;
+               width: 2.5em;
+               height: 2.5em;
+               line-height: 2.5em;
+               border-radius: 50%;
+               -webkit-mask-image: none;
+               }
+
+               .waves-block {
+               display: block;
+               }
+
+               /* Firefox Bug: link not triggered */
+               a.waves-effect .waves-ripple {
+               z-index: -1;
+               }
+
+               .card-image img
+               {
+                   padding: 20px;
+               }
+               .title_parralax
+               {
+                   color:white;
+                   text-align: center;
+                   padding: 10px;
+                   font-weight: 300;
+                   margin-top: 190px;
+               }
+               .little_title_parralax
+               {
+                   color:white;
+                   font-size:.5em;
+                   font-weight: 100;
+               }
+               .container-square
+               {
+                   margin-top: 102px;
+               }
+               .square
+               {
+                   padding-bottom:20px;
+
+               }
+               .square i 
+               {
+                   color:white;
+                   font-size: 4em;
+                   margin-top: 22px;
+               }
+               .square-pink
+               {
+                   background-color:#e91e63;
+               }
+               .square-red
+               {
+                    background-color:#8bc34a;
+               }
+               .square-blue
+               {
+                    background-color:#2196f3;
+               }
+               .square-yellow
+               {
+                    background-color:#ffeb3b;
+               }
+     
             
             
     </style>
     <script>
           $(document).ready(function(){
              
-             $("#main-div").css("min-height","1100px")
+             $("#main-div").css("min-height","1300px")
              $("#edit-profil-div").css("display","none");
              $("#edit-profil-more-div").css("display","none");
              $( "#button-edit" ).click(function() {
                 $("#edit-profil-div").css("display","block");
                 $("#edit-profil-more-div").css("display","block");
-                $("#main-div").css("min-height","1600px")
+                $("#main-div").css("min-height","2050px")
 
             });
         
@@ -550,35 +845,45 @@ Morbi tristique velit dictum nunc rhoncus, sed auctor eros placerat. Nunc luctus
                   <h5><i class="fa fa-clock-o"></i> Vos dernières commandes</h5>
                   
               
-                  
+                   <div class="row">
                    <c:forEach var="order" items="${orderSorted}" >
-       
-            Montant : ${order.amount}<br/>
-           idCustomerOrder:  ${order.idcustomerOrder}
-            
-
-   
-            <br/><br/>
+                   <div class="col-md-4">
+                   <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                           <img class="activator" src="data:image/svg+xml;base64,CiAgPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMDI0IDEwMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8bWV0YWRhdGE+IEZyZWUgSWNvbiBEb3dubG9hZCAtLSB3d3cub25saW5ld2ViZm9udHMuY29tIDwvbWV0YWRhdGE+CgogIDxwYXRoIHN0eWxlPSJmaWxsOiM1NmFiZTQiIGQ9Ik00NzYuNzM2IDExNS40NTYgMzgzLjQ4OCAxMTUuNDU2IDM4My40ODggMTg1Ljk4NCA2NDAuNTEyIDE4NS45ODQgNjQwLjUxMiAxMTUuNDU2IDU0Ny4yNjQgMTE1LjQ1NiA1NDcuMjY0IDkyLjY3MiA2NjMuODcyIDkyLjY3MiA2NjMuODcyIDIyLjIwOCAzNjAuMTkyIDIyLjIwOCAzNjAuMTkyIDkyLjY3MiA0NzYuNzM2IDkyLjY3MloiPjwvcGF0aD4KPHBhdGggc3R5bGU9ImZpbGw6IzU2YWJlNCIgZD0iTTI2MC44NjQgNjYyLjAxNmw1MDIuMzM2IDAgMCA3MC4xNDQtNTAyLjMzNiAwIDAtNzAuMTQ0WiI+PC9wYXRoPgo8cGF0aCBzdHlsZT0iZmlsbDojNTZhYmU0IiBkPSJNNzkxLjc0NCA5Mi4wOTZsLTU4LjU2IDAgMCA3MC41MjggNTguNTYgMGM0NS41NjggMCA4MS4yOCAzNS43MTIgODEuMjggODEuMjhsMCA1ODIuNzg0YzAgNTcuNjY0LTQ2LjkxMiAxMDQuNjQtMTA0LjU3NiAxMDQuNjRMMjU1LjYxNiA5MzEuMzI4Yy01Ny43MjggMC0xMDQuNjQtNDYuOTEyLTEwNC42NC0xMDQuNjRMMTUwLjk3NiAyNDMuOTA0YzAtNDUuNTY4IDM1LjcxMi04MS4yOCA4MS4yOC04MS4yOGw1OC41NiAwTDI5MC44MTYgOTIuMTYgMjMyLjI1NiA5Mi4xNmMtODUuMTIgMC0xNTEuODA4IDY2LjY4OC0xNTEuODA4IDE1MS44MDhsMCA1ODIuNzg0YzAgOTYuNTc2IDc4LjUyOCAxNzUuMTA0IDE3NS4xMDQgMTc1LjEwNGw1MTIuODMyIDBjOTYuNTc2IDAgMTc1LjEwNC03OC41MjggMTc1LjEwNC0xNzUuMTA0TDk0My40ODggMjQzLjkwNEM5NDMuNTUyIDE1OC43ODQgODc2Ljg2NCA5Mi4wOTYgNzkxLjc0NCA5Mi4wOTZ6Ij48L3BhdGg+CjxwYXRoIHN0eWxlPSJmaWxsOiM1NmFiZTQiIGQ9Ik0yNTkuOTY4IDUwMi4yNzJsNTAyLjMzNiAwIDAgNzAuMjA4LTUwMi4zMzYgMCAwLTcwLjIwOFoiPjwvcGF0aD4KPHBhdGggc3R5bGU9ImZpbGw6IzU2YWJlNCIgZD0iTTI2MC40MTYgMzQyLjIwOGw1MDIuMzM2IDAgMCA3MC4yMDgtNTAyLjMzNiAwIDAtNzAuMjA4WiI+PC9wYXRoPgoKCjwvc3ZnPiAg" width="256" height="256"/>
+                        </div>
+                        <div class="card-content">
+                          <span class="card-title activator grey-text text-darken-4">Le ${order.dateCreated}<i class="fa fa-ellipsis-v" style="float:right;"></i></span>
+                          <p>
+                              Montant de la commande : ${order.amount}€
+                          </p>
+                        </div>
+                        <div class="card-reveal">
+                          <span class="card-title grey-text text-darken-4">Résumé de la commande<i class="fa fa-times" style="float:right;"></i></span>
+                          <c:forEach var="orderproduct" items="${orderManager.getOrderProductByIdOrder(order)}"  >
+                          <div class="panel panel-success">
+                                <div class="panel-heading">
+                                  <h3 class="panel-title">Quantité : ${orderproduct.quantity}</h3>
+                                </div>
+                                <div class="panel-body">
+                                  ${orderproduct.idProduct.name}
+                                </div>
+                            </div>
+                                                   
+                          </c:forEach>
+                        </div>
+                    </div>
+                       
+                   </div>
+                  
               
               
       
-                    <c:forEach var="orderproduct" items="${orderManager.getOrderProductByIdOrder(order)}"  >
-      
-                        
-      
-          ${orderproduct.idProduct.name} //
-          ${orderproduct.quantity}<br/>
-         
-      
-            
-            </c:forEach>
-            <br/>
+                  
             
             
-            <br/><br/><br/>
             
-            
-            </c:forEach>
+                    </c:forEach>
               </blockquote>
                 </div>
             </div>

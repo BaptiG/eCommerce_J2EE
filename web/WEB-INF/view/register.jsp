@@ -126,6 +126,8 @@
 <script>
     
         $(document).ready(function(){
+            
+            
             $('.slider').slider({full_width: true, height : 900, indicators : false, interval : 10000});
             
             $( ".slider" ).mouseover(function() {
@@ -135,7 +137,9 @@
                 $('.slider').slider('start');
 
             });
-
+            $("#sliderNext").click(function(){
+                $('.slider').slider('next'); 
+            });
             
           });
     
